@@ -47,7 +47,8 @@ end
 
 
 post '/submit' do
-
+  Meetup.create(name: params["meetup"], location: params["location"], description: params["description"])
+  redirect '/'
 end
 
 get '/auth/github/callback' do
