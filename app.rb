@@ -35,6 +35,21 @@ get '/' do
   erb :index
 end
 
+get '/submit' do
+
+  erb :new
+end
+get '/:id' do
+  @meetup = Meetup.find(params[:id])
+
+  erb :show
+end
+
+
+post '/submit' do
+
+end
+
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
 
