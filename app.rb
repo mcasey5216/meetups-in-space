@@ -75,11 +75,14 @@ post '/join' do
 end
 
 post '/submit' do
-  if signed_in?
+  if signed_in? && params["meetup"].empty? == false && params["location"].empty? == false && params["description"].empty? == false
     new = Meetup.create(name: params["meetup"], location: params["location"], description: params["description"])
     flash[:notice] = "Meetup successfully created!"
     redirect "/#{new.id}"
-  else
+  elsif signed_in? && params["meetup"].empty? || params["location"].empty? || params["description"].empty?
+    flash[:notice] = "Please fill in all fields"
+    redirect '/submit'
+  elsif signed_in? == false
     flash[:notice] = "Please sign in."
     redirect '/submit'
   end

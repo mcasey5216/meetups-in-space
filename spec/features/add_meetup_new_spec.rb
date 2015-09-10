@@ -25,4 +25,29 @@ feature "User views the new page" do
     expect(page).to have_content("Atomic Space Party")
 
   end
+
+  scenario "user doesnt fill out all of the forms before submitting" do
+    sign_in_as user
+
+    visit '/submit'
+
+    fill_in "Name of Meetup", with: "Atomic Space Party"
+
+    click_button "submit"
+    expect(page).to have_content("Please fill in all fields")
+
+  end
+
+  scenario "user doesnt fill out all of the forms before submitting" do
+
+    visit '/submit'
+
+    fill_in "Name of Meetup", with: "Atomic Space Party"
+    fill_in "Location", with: "Black hole"
+    fill_in "Description", with: "Party in the Universe"
+
+    click_button "submit"
+    expect(page).to have_content("Please sign in.")
+
+  end
 end
