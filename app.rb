@@ -31,18 +31,6 @@ def authenticate!
   end
 end
 
-get '/' do
-  @meetups = Meetup.all
-  erb :index
-end
-
-get '/submit' do
-  erb :new
-end
-
-
-
-
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
 
@@ -64,15 +52,27 @@ get '/example_protected_page' do
   authenticate!
 end
 
+get '/' do
+  @meetups = Meetup.all.order(name: :asc)
+  erb :index
+end
+
+get '/submit' do
+  erb :new
+end
+
 get '/:id' do
   @meetup = Meetup.find(params[:id])
+  @membership = Membership.where(meetup_id: params[:id])
   erb :show
 end
 
 post '/join' do
-
+  @fields = {user_id: params[:user_id], meetup_id: params[:meetup_id]}
+  Membership.find_or_create_by(@fields)
+  flash[:notice] = "You have joined the meetup."
+  redirect "/#{@fields[:meetup_id]}"
 end
-
 
 post '/submit' do
   if signed_in?

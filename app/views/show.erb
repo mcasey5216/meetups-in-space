@@ -2,14 +2,17 @@
 <h3>location: <%= @meetup.location %></h3>
 <p>description: <%= @meetup.description %></p>
 
-<form action="/submit" method="POST">
+<form action="/join" method="POST">
   <label form="join">
-    <input type="submit" id="join" value="join">
+    <input type="hidden" value = "<%= current_user.id %>" name="user_id">
+    <input type="hidden" value = "<%= @meetup.id %>" name="meetup_id">
+    <input type="hidden" value = "member" name="join">
+    <input type="submit" id="join" value="Join Now!">
   </label>
 </form>
 <h2>Members</h2>
   <ul>
-  <% @meetup.users.each do |user| %>
-    <li> <%= user %> </li>
-  <% end %>
+    <% @membership.each do |idx| %>
+      <li> <%= idx.user.username %> </li>
+      <% end %>
   </ul>
