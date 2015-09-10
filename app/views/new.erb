@@ -1,12 +1,17 @@
 <form action="/submit" method="POST">
-  <label form="meetup">Name of Meetup</label>
-  <input type="text" name="meetup" id="meetup"><br/>
+  <span>Name of Meetup</span><br/>
+  <label form="meetup">
+  <input type="text" name="meetup" id="meetup" required>
+  </label>
 
-  <label form="location">Location</label>
-  <input type="text" name="location" id="location"><br/>
+  <span>Location</span><br/>
+  <label form="location">
+  <input type="text" name="location" id="location" required>
+  </label>
 
-  <label form="description">Description</label>
-  <input type="text" name="description" id="description">
-  <input type="submit">
-
+  <span>Description</span></br>
+  <label form="description">
+  <input type="text" name="description" id="description" required>
+  </label><br/>
+  <input type="submit" id="submit">
 </form>

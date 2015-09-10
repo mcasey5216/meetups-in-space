@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'omniauth-github'
+# require 'faker'
 
 require_relative 'config/application'
 set :environment, :development
@@ -36,20 +37,11 @@ get '/' do
 end
 
 get '/submit' do
-
   erb :new
 end
-get '/:id' do
-  @meetup = Meetup.find(params[:id])
-
-  erb :show
-end
 
 
-post '/submit' do
-  Meetup.create(name: params["meetup"], location: params["location"], description: params["description"])
-  redirect '/'
-end
+
 
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
@@ -70,4 +62,25 @@ end
 
 get '/example_protected_page' do
   authenticate!
+end
+
+get '/:id' do
+  @meetup = Meetup.find(params[:id])
+  erb :show
+end
+
+post '/join' do
+
+end
+
+
+post '/submit' do
+  if signed_in?
+    new = Meetup.create(name: params["meetup"], location: params["location"], description: params["description"])
+    flash[:notice] = "Meetup successfully created!"
+    redirect "/#{new.id}"
+  else
+    flash[:notice] = "Please sign in."
+    redirect '/submit'
+  end
 end

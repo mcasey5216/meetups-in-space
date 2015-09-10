@@ -7,3 +7,13 @@
 
 Meetup.create!(name: "Space exploration!", description: "See name...", location:"Moon")
 Meetup.create!(name: "Cross Pluto Skiing", description: "Also see name...", location:"Pluto")
+
+# 100.times do
+#    User.create(
+#    provider: Faker::Company.name,
+#    uid: Faker::Internet.password,
+#    email: Faker::Internet.email,
+#    username: Faker::Internet.user_name,
+#    avatar_url: Faker::Avatar.image
+#  )
+# end
